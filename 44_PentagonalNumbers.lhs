@@ -12,7 +12,7 @@ Generates a pentagonal number for the given index n.
 Generates a list of pentagonal numbers from 1 to n.
 
 > pentList :: Integral a => a -> [a]
-> pentList n = map pentagonal $ [1..n]
+> pentList n = map pentagonal [1..n]
 
 Checks if a number is pentagonal. A number is pentagonal if (1/6 (+ || -) sqrt((24n + 1)/36) is even.
 
@@ -23,7 +23,9 @@ Checks if a number is pentagonal. A number is pentagonal if (1/6 (+ || -) sqrt((
 Solution
 --------
 
-Brute-force solution. Creates two lists of pentagonal numbers P_1 -> P_n where n = 10000, creates tuples of the respective differences and sums and finally filters the list for tuples where both the sum and difference are pentagonal.
+Brute-force solution. Creates two lists of pentagonal numbers P_1 -> P_n where n = 10000,
+creates tuples of the respective differences and sums and finally filters the list for
+tuples where both the sum and difference are pentagonal.
 
 > listA = pentList 2500
 > listB = pentList 2500
@@ -35,13 +37,14 @@ Brute-force solution. Creates two lists of pentagonal numbers P_1 -> P_n where n
 Auxiliary
 ---------
 
-Checks if a number is an int, that is, for this problem we can calculate whether a result has a rest or not (courtesy of SO-user yairchu, ref 1).
+Checks if a number is an int, that is, for this problem we can calculate whether a result
+has a rest or not (courtesy of SO-user yairchu, ref 1).
 
 > isInt :: RealFrac a => a -> Bool
 > isInt n = n == fromInteger (round n)
 
-Returns the minimum element where the ordering is determined by the transformation function func (courtesy of EDAN40,
-ref 2).
+Returns the minimum element where the ordering is determined by the transformation function func
+(courtesy of EDAN40, ref 2).
 
 > minimumBy :: (Ord b) => (a -> b) -> [a] -> a
 > minimumBy func xs = head $ filter ((==minVal) . func) xs
