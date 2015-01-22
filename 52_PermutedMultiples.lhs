@@ -4,8 +4,10 @@ Euler problem 52 - Permuted Multiples
 Problem Analysis
 ----------------
 
-The solution to this problem is pretty straight-forward. There is a small optimation to be made, namely instead of calculating each of the c * x (c is [1,6]) immediately, an iterative calculation and control will allow discarding a faulty candidate earlier.
-	Also, x must be a multiple of 9, since in order for a number to produce the same digit sum after multiplication, it needs to be multiplied by 3.
+The solution to this problem is pretty straight-forward. There is a small optimation to be made,
+namely instead of calculating each of the c * x (c is [1,6]) immediately, an iterative calculation
+and control will allow discarding a faulty candidate earlier. Also, x must be a multiple of 9, since
+in order for a number to produce the same digit sum after multiplication, it needs to be multiplied by 3.
 
 Imports
 -------
@@ -27,7 +29,8 @@ Investigates whether or not two digit lists are equal, regardless of digit order
 Solution
 --------
 
-The solution investigates, for each number n = [1,2..Solution] if n, 2n, ..., 6n contains the same digits. As soon as a c * n is wrong, the next number is investigated. This is enable via Haskell's lazy evaluation.
+The solution investigates, for each number n = [1,2..Solution] if n, 2n, ..., 6n contains the same digits.
+As soon as a c * n is wrong, the next number is investigated. This is enable via Haskell's lazy evaluation.
 
 > solve = solver 9
 > solver n
