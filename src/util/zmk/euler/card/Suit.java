@@ -1,4 +1,4 @@
-package euler.problem54;
+package zmk.euler.card;
 
 import java.util.ArrayList;
 import java.util.Collections;

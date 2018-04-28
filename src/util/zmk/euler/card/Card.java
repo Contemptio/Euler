@@ -1,4 +1,4 @@
-package euler.problem54;
+package zmk.euler.card;
 
 public class Card {
     private static final Card nullCard = new Card(Suit.NULL, 0);
