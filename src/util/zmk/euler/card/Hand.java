@@ -26,6 +26,7 @@ public class Hand implements Iterable<Card> {
         for (String name : names) {
             suits.add(Suit.get(name));
         }
+        this.hand = ordered();
     }
 
     private void handError(String errorType, int required, int actual) {
@@ -51,9 +52,13 @@ public class Hand implements Iterable<Card> {
         return hand.iterator();
     }
 
-    public List<Card> ordered() {
+    private List<Card> ordered() {
         List<Card> ordered = new ArrayList<Card>(hand);
         Collections.sort(ordered);
         return ordered;
+    }
+
+    public boolean hasSpade() {
+        return hand.get(hand.size() - 1).value() == 14;
     }
 }
