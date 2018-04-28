@@ -1,8 +1,8 @@
 package zmk.euler.card;
 
-public class Card {
-    private static final Card nullCard = new Card(Suit.NULL, 0);
-    private static int N_CARDS = 10 + 4;
+public class Card implements Comparable<Card> {
+    public static final int N_CARDS = 10 + 4;
+    private static final Card nullCard = NullCard.instance();
 
     private Suit suit;
     private int value;
@@ -13,7 +13,8 @@ public class Card {
 
     public Card(Suit suit, int value) {
         if (value < 1 || value > N_CARDS) {
-            throw new IllegalArgumentException("Invalid card value: " + value + ", expected [1, " + N_CARDS + "].");
+            throw new IllegalArgumentException("Invalid card value: " + value
+                    + ", expected [1, " + N_CARDS + "].");
         }
 
         this.suit = suit;
@@ -33,6 +34,23 @@ public class Card {
     }
 
     public int ordinal() {
-        return Suit.ordinal(this.suit);
+        return Suit.ordinal(suit);
+    }
+
+    public boolean isNull() {
+        return false;
+    }
+
+    public int compareTo(Card other) {
+        int cmp = value() - other.value();
+        if (cmp != 0) {
+            return cmp;
+        }
+
+        return suit().ordinal() - other.suit().ordinal();
+    }
+
+    public int higherThan(Card card) {
+        return compareTo(card);
     }
 }

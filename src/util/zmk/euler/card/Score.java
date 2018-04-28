@@ -7,54 +7,17 @@ import java.util.List;
 
 public class Score {
 
-    /**
-     * High Card: Highest value card.
-     * One Pair: Two cards of the same value.
-     * Two Pairs: Two different pairs.
-     * Three of a Kind: Three cards of the same value.
-     * Straight: All cards are consecutive values.
-     * Flush: All cards of the same suit.
-     * Full House: Three of a kind and a pair.
-     * Four of a Kind: Four cards of the same value.
-     * Straight Flush: All cards are consecutive values of same suit.
-     * Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
-     * 
-     * @param hand
-     * @return
-     */
+    private enum Type implements Comparable<Type> {
+        ROYAL_FLUSH, STRAIGHT_FLUSH, FOUR, HOUSE, FLUSH, STRAIGHT, THREE, TWO_PAIRS, PAIR, NULL;
 
-    public static boolean isWinner(Hand defender, Hand opposer) {
-        int matchDefender = match(defender);
-        int matchOpposer = match(opposer);
+        private static final List<Type> VALUES = Arrays.asList(values());
 
-        if (matchDefender > matchOpposer) {
-            return true;
-        } else if (matchOpposer > matchDefender) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public enum CardMatch {
-        ROYAL_FLUSH,
-        STRAIGHT_FLUSH,
-        FOUR,
-        FULL_HOUSE,
-        FLUSH,
-        STRAIGHT,
-        THREE,
-        TWO_PAIRS,
-        ONE_PAIR;
-
-        private static List<CardMatch> values = Arrays.asList(values());
-
-        public static int ordinal(CardMatch value) {
-            return values.indexOf(value);
+        public final boolean beats(Type other) {
+            return ordinal() > other.ordinal();
         }
     }
 
-    private static int match(Hand hand) {
+    private static Type match(Hand hand) {
         Collections.sort(hand.cards(), new Comparator<Card>() {
 
             public int compare(Card card1, Card card2) {
@@ -72,10 +35,38 @@ public class Score {
         boolean isThree = house.three();
         int nPairs = house.pairs();
         Card highest = highest(hand);
-        
-        // TODO: Here.
 
-        return -1;
+        if (isMonochrome) {
+            if (isStraight) {
+                return Type.ROYAL_FLUSH;
+            }
+            return Type.FLUSH;
+        }
+
+        return Type.NULL;
+    }
+
+    public final boolean beats(Hand defender, Hand challenger) {
+        int defenderValue = match(defender).ordinal();
+        int challengerValue = match(challenger).ordinal();
+
+        if (defenderValue == challengerValue) {
+            List<Card> defenderOrder = defender.ordered();
+            List<Card> challengerOrder = challenger.ordered();
+
+            for (int i = 0; i < defenderOrder.size(); ++i) {
+                int cmp = defenderOrder.get(i)
+                        .higherThan(challengerOrder.get(i));
+
+                if (cmp == 0) {
+                    continue;
+                }
+
+                return cmp < 0;
+            }
+        }
+
+        return match(defender).beats(match(challenger));
     }
 
     private static Card highest(Hand hand) {

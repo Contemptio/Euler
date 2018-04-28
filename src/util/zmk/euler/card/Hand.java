@@ -1,6 +1,7 @@
 package zmk.euler.card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,23 +28,19 @@ public class Hand implements Iterable<Card> {
         }
     }
 
-    public boolean winsAgainst(Hand other) {
-        return Score.isWinner(this, other);
-    }
-
     private void handError(String errorType, int required, int actual) {
-        throw new IllegalArgumentException(
-                "Required " + required + " " + errorType + " to create a hand, got " + actual + ".");
+        throw new IllegalArgumentException("Required " + required + " "
+                + errorType + " to create a hand, got " + actual + ".");
     }
 
     public List<Suit> suits() {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: this.
+        return Collections.emptyList();
     }
 
     public List<Integer> values() {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: this.
+        return Collections.emptyList();
     }
 
     public List<Card> cards() {
@@ -52,5 +49,11 @@ public class Hand implements Iterable<Card> {
 
     public Iterator<Card> iterator() {
         return hand.iterator();
+    }
+
+    public List<Card> ordered() {
+        List<Card> ordered = new ArrayList<Card>(hand);
+        Collections.sort(ordered);
+        return ordered;
     }
 }
