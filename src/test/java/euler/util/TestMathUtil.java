@@ -17,7 +17,7 @@ public class TestMathUtil {
 
     @Test
     public void sum() {
-        List<Integer> numbers = Arrays.asList(1, -1, 2);
+        List<Long> numbers = Arrays.asList(1L, -1L, 2L);
         assertEquals(2, MathUtil.sum(numbers));
     }
 
@@ -42,14 +42,28 @@ public class TestMathUtil {
 
     @Test
     public void range() {
-        List<Integer> numbers = new ArrayList<Integer>();
-        for (int i = 0; i < 1234; ++i) {
+        List<Long> numbers = new ArrayList<>();
+        for (long i = 0; i < 1234; ++i) {
             numbers.add(i);
         }
         assertEquals(numbers, MathUtil.range(0, 1233));
     }
 
-    private <T> List<T> list(@SuppressWarnings("unchecked") T... ts) {
-        return Arrays.asList(ts);
+    @Test
+    public void factors() {
+        assertEquals(list(5, 7, 13, 29, 35, 65, 91), MathUtil.factors(13195));
+    }
+
+    @Test
+    public void primes() {
+        assertEquals(list(3, 5, 7, 11, 13, 17, 19, 23, 29), MathUtil.primes(MathUtil.range(0, 30)));
+    }
+
+    private List<Long> list(long... numbers) {
+        List<Long> list = new ArrayList<>();
+        for (long num : numbers) {
+            list.add(num);
+        }
+        return list;
     }
 }
