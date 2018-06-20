@@ -2,6 +2,7 @@ package euler.problem9;
 
 import java.util.Arrays;
 
+import euler.data.Triplet;
 import euler.util.MathUtil;
 
 public class PythagorianTriplet {
@@ -33,26 +34,5 @@ public class PythagorianTriplet {
 
     private static boolean isPythagorianTriplet(long a, long b, long c) {
         return (long) (Math.pow(a, 2) + Math.pow(b, 2)) == (long) Math.pow(c, 2);
-    }
-
-    private static class Triplet {
-        private long a;
-        private long b;
-        private long c;
-
-        public Triplet(long a, long b, long c) {
-            this.a = a;
-            this.b = b;
-            this.c = c;
-        }
-
-        public long product() {
-            return a * b * c;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + a + ", " + b + ", " + c + ")";
-        }
     }
 }
