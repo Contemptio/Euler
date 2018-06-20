@@ -15,4 +15,26 @@ public final class StringUtil {
 
         return builder.toString();
     }
+
+    public static boolean isPalindrome(String string) {
+        int length = string.length();
+
+        if (length <= 0) {
+            return false;
+        }
+        if (length == 1) {
+            return true;
+        }
+
+        int start = 0;
+        int end = length - 1;
+
+        while (start < end) {
+            if (string.charAt(start++) != string.charAt(end--)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
