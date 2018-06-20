@@ -2,6 +2,7 @@ package euler.util;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -100,5 +101,17 @@ public final class MathUtil {
 
     public static List<Long> square(List<Long> range) {
         return range.stream().mapToLong(number -> (long) Math.pow(number, 2)).boxed().collect(Collectors.toList());
+    }
+
+    public static List<Long> primes(long min, long max) {
+        if (min <= 1) {
+            min = 2;
+        }
+
+        if (min > max) {
+            return Collections.emptyList();
+        }
+
+        return filter(range(min, max), number -> Algorithms.isPrime((number)));
     }
 }

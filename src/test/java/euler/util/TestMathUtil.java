@@ -56,7 +56,7 @@ public class TestMathUtil {
 
     @Test
     public void primes() {
-        assertEquals(list(3, 5, 7, 11, 13, 17, 19, 23, 29), MathUtil.primes(MathUtil.range(0, 30)));
+        assertEquals(list(2, 3, 5, 7, 11, 13, 17, 19, 23, 29), MathUtil.primes(MathUtil.range(0, 30)));
     }
 
     @Test
