@@ -2,6 +2,7 @@ package euler.util;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -49,5 +50,17 @@ public final class MathUtil {
 
     public static List<Integer> range(int min, int max) {
         return IntStream.range(min, max + 1).boxed().collect(Collectors.toList());
+    }
+
+    public static List<Integer> even(List<Integer> numbers) {
+        return filter(numbers, x -> x % 2 == 0);
+    }
+
+    public static List<Integer> odd(List<Integer> numbers) {
+        return filter(numbers, x -> x % 2 != 0);
+    }
+
+    private static List<Integer> filter(List<Integer> numbers, Predicate<? super Integer> predicate) {
+        return numbers.stream().filter(predicate).collect(Collectors.toList());
     }
 }
