@@ -1,5 +1,6 @@
 package euler.util;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -69,15 +70,31 @@ public final class MathUtil {
                 .collect(Collectors.toList());
     }
 
-    public static long max(List<Long> factors) {
+    public static long max(List<Long> range) {
         long max = Long.MIN_VALUE;
-        for (long factor : factors) {
-            max = max < factor ? factor : max;
+        for (long number : range) {
+            max = max < number ? number : max;
         }
         return max;
     }
 
+    public static long min(List<Long> range) {
+        long min = Long.MAX_VALUE;
+        for (long number : range) {
+            min = min < number ? min : number;
+        }
+        return min;
+    }
+
     public static List<Long> primes(List<Long> range) {
         return range.stream().filter(number -> Algorithms.isPrime(number)).collect(Collectors.toList());
+    }
+
+    public static BigInteger product(List<Long> range) {
+        BigInteger integer = new BigInteger("1");
+        for (long number : range) {
+            integer = integer.multiply(new BigInteger(Long.toString(number)));
+        }
+        return integer;
     }
 }
