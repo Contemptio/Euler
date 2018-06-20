@@ -1,12 +1,13 @@
 package euler.util;
 
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
+
+import euler.data.Number;
 
 public final class MathUtil {
 
@@ -91,10 +92,10 @@ public final class MathUtil {
         return range.stream().filter(number -> Algorithms.isPrime(number)).collect(Collectors.toList());
     }
 
-    public static BigInteger product(List<Long> range) {
-        BigInteger integer = new BigInteger("1");
+    public static Number product(List<Long> range) {
+        Number integer = new Number("1");
         for (long number : range) {
-            integer = integer.multiply(new BigInteger(Long.toString(number)));
+            integer = integer.multiply(new Number(Long.toString(number)));
         }
         return integer;
     }
