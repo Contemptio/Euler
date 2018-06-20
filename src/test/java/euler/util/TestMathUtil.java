@@ -59,6 +59,22 @@ public class TestMathUtil {
         assertEquals(list(3, 5, 7, 11, 13, 17, 19, 23, 29), MathUtil.primes(MathUtil.range(0, 30)));
     }
 
+    @Test
+    public void max() {
+        assertEquals(Long.MAX_VALUE, MathUtil.max(list(1, 23, 456, 7890, 12345, 678901, -1234557890, Long.MAX_VALUE)));
+    }
+
+    @Test
+    public void min() {
+        assertEquals(Long.MIN_VALUE,
+                MathUtil.min(list(-1, -23, -456, -7890, -12345, 678901, 123345678891241L, Long.MIN_VALUE)));
+    }
+
+    @Test
+    public void square() {
+        assertEquals(list(1, 4, 9, 16, 25, 36, 49, 64, 81, 100), MathUtil.square(list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
+    }
+
     private List<Long> list(long... numbers) {
         List<Long> list = new ArrayList<>();
         for (long num : numbers) {

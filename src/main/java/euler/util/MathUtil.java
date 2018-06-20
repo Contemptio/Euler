@@ -97,4 +97,8 @@ public final class MathUtil {
         }
         return integer;
     }
+
+    public static List<Long> square(List<Long> range) {
+        return range.stream().mapToLong(number -> (long) Math.pow(number, 2)).boxed().collect(Collectors.toList());
+    }
 }
