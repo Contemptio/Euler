@@ -11,8 +11,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import euler.data.Grid;
+
 public final class FileUtil {
     private static final String NEWLINE_REGEX = "\\s*\\n\\s*";
+    private static final String WHITESPACE_REGEX = "\\s+";
 
     private FileUtil() {}
 
@@ -23,15 +26,16 @@ public final class FileUtil {
             return Collections.emptyList();
         }
 
-        return Arrays.asList(file.split(NEWLINE_REGEX)).stream().map(line -> Arrays.asList(line.split(",*\\s+")))
-                .flatMap(List::stream).mapToLong(string -> Long.parseLong(string)).boxed().collect(Collectors.toList());
+        return Arrays.asList(file.split(NEWLINE_REGEX)).stream()
+                .map(line -> Arrays.asList(line.split(",*" + WHITESPACE_REGEX))).flatMap(List::stream)
+                .mapToLong(string -> Long.parseLong(string)).boxed().collect(Collectors.toList());
     }
 
     public static String fileAsString(String fileName) throws UnsupportedEncodingException, IOException {
         return new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8");
     }
 
-    public static List<String> fileAsLines(String fileName) throws UnsupportedEncodingException, IOException {
+    public static List<String> parseLines(String fileName) throws UnsupportedEncodingException, IOException {
         return Arrays.asList(new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8").split(NEWLINE_REGEX));
     }
 
@@ -41,7 +45,7 @@ public final class FileUtil {
     }
 
     public static List<List<Short>> digitMap(String fileName) throws UnsupportedEncodingException, IOException {
-        List<String> lines = fileAsLines(fileName);
+        List<String> lines = parseLines(fileName);
         int size = lines.size();
         List<List<Short>> digitMap = new ArrayList<>();
 
@@ -57,5 +61,23 @@ public final class FileUtil {
         }
 
         return digitMap;
+    }
+
+    public static List<List<String>> parseMatrix(String fileName) throws UnsupportedEncodingException, IOException {
+        List<List<String>> matrix = new ArrayList<>();
+
+        for (String line : parseLines(fileName)) {
+            matrix.add(Arrays.asList(line.split(WHITESPACE_REGEX)));
+        }
+        return matrix;
+    }
+
+    public static Grid<Long> longGrid(String fileName) throws UnsupportedEncodingException, IOException {
+        List<List<String>> matrix = parseMatrix(fileName);
+        List<List<Long>> longs = matrix.stream()
+                .map(list -> list.stream().map(string -> Long.parseLong(string)).collect(Collectors.toList()))
+                .collect(Collectors.toList());
+
+        return new Grid<Long>(longs);
     }
 }

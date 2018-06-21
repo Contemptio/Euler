@@ -72,4 +72,20 @@ public class Number extends BigInteger {
     public Number divide(BigInteger number) {
         return new Number(divide(Long.parseLong(number.toString())));
     }
+
+    public static Number max(Number reference, Number comparison) {
+        if (reference == null) {
+            if (comparison == null) {
+                return null;
+            }
+            return comparison;
+        } else if (comparison == null) {
+            return reference;
+        }
+
+        if (reference.compareTo(comparison) < 0) {
+            return comparison;
+        }
+        return reference;
+    }
 }
