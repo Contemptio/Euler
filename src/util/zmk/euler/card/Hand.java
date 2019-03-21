@@ -16,7 +16,7 @@ public class Hand implements Iterable<Card> {
         int nValues = values.length;
 
         if (nNames != SIZE) {
-            handError("names", SIZE, nNames);
+            handError("suits", SIZE, nNames);
         }
         if (nValues != SIZE) {
             handError("values", SIZE, nValues);

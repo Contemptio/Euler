@@ -38,7 +38,7 @@ public class TestCard {
     }
 
     @Test
-    public void test() {
+    public void testBasic() {
         int value = 1;
 
         card = new Card("Diamond", value);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 public class TestMathUtil {
 
@@ -26,18 +26,21 @@ public class TestMathUtil {
         int base = 1;
         for (int i = 1; i < 0; i *= 2) {
             int test = base * i;
-            assertEquals(test + " % " + i, test % i == 0, MathUtil.isDivisibleBy(test, i));
+            assertEquals(test + " % " + i, test % i == 0,
+                    MathUtil.isDivisibleBy(test, i));
         }
     }
 
     @Test
     public void getDivisibleByEither() {
-        assertEquals(list(356, 8), MathUtil.getDivisibleByEither(list(1, 7, 23, 356, 479, 8), list(2, 3, 4)));
+        assertEquals(list(356, 8), MathUtil.getDivisibleByEither(
+                list(1, 7, 23, 356, 479, 8), list(2, 3, 4)));
     }
 
     @Test
     public void getDivisibleByAll() {
-        assertEquals(list(24), MathUtil.getDivisibleByAll(list(1, 7, 23, 356, 479, 8, 6, 2 * 3 * 4), list(1, 2, 3, 4)));
+        assertEquals(list(24), MathUtil.getDivisibleByAll(
+                list(1, 7, 23, 356, 479, 8, 6, 2 * 3 * 4), list(1, 2, 3, 4)));
     }
 
     @Test
@@ -56,23 +59,26 @@ public class TestMathUtil {
 
     @Test
     public void primes() {
-        assertEquals(list(2, 3, 5, 7, 11, 13, 17, 19, 23, 29), MathUtil.primes(MathUtil.range(0, 30)));
+        assertEquals(list(2, 3, 5, 7, 11, 13, 17, 19, 23, 29),
+                MathUtil.primes(MathUtil.range(0, 30)));
     }
 
     @Test
     public void max() {
-        assertEquals(Long.MAX_VALUE, MathUtil.max(list(1, 23, 456, 7890, 12345, 678901, -1234557890, Long.MAX_VALUE)));
+        assertEquals(Long.MAX_VALUE, MathUtil.max(list(1, 23, 456, 7890, 12345,
+                678901, -1234557890, Long.MAX_VALUE)));
     }
 
     @Test
     public void min() {
-        assertEquals(Long.MIN_VALUE,
-                MathUtil.min(list(-1, -23, -456, -7890, -12345, 678901, 123345678891241L, Long.MIN_VALUE)));
+        assertEquals(Long.MIN_VALUE, MathUtil.min(list(-1, -23, -456, -7890,
+                -12345, 678901, 123345678891241L, Long.MIN_VALUE)));
     }
 
     @Test
     public void square() {
-        assertEquals(list(1, 4, 9, 16, 25, 36, 49, 64, 81, 100), MathUtil.square(list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
+        assertEquals(list(1, 4, 9, 16, 25, 36, 49, 64, 81, 100),
+                MathUtil.square(list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
     }
 
     private List<Long> list(long... numbers) {
