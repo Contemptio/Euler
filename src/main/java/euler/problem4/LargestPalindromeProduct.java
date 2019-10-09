@@ -1,7 +1,7 @@
 package euler.problem4;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import euler.util.MathUtil;
 import euler.util.StringUtil;
@@ -12,9 +12,11 @@ public class LargestPalindromeProduct {
         System.out.println(MathUtil.max(productsFromDigits(3)));
     }
 
-    private static List<Long> productsFromDigits(int numbers) {
-        List<Long> products = new ArrayList<>();
-        List<Long> range = MathUtil.range((long) Math.pow(10, numbers - 1), (long) Math.pow(10, numbers) - 1);
+    private static Collection<Long> productsFromDigits(int numbers) {
+        Collection<Long> products = new ArrayList<>();
+        Collection<Long> range = MathUtil.range(
+                (long) Math.pow(10, numbers - 1),
+                (long) Math.pow(10, numbers) - 1);
 
         for (long i : range) {
             for (long j : range) {

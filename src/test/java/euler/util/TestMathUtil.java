@@ -4,16 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
 public class TestMathUtil {
-
-    /**
-     * Hide default constructor.
-     */
-    private TestMathUtil() {}
 
     @Test
     public void sum() {
@@ -45,7 +42,7 @@ public class TestMathUtil {
 
     @Test
     public void range() {
-        List<Long> numbers = new ArrayList<>();
+        Set<Long> numbers = new LinkedHashSet<>();
         for (long i = 0; i < 1234; ++i) {
             numbers.add(i);
         }
@@ -54,12 +51,13 @@ public class TestMathUtil {
 
     @Test
     public void factors() {
-        assertEquals(list(5, 7, 13, 29, 35, 65, 91), MathUtil.factors(13195));
+        assertEquals(set(1, 5, 7, 13, 29, 35, 65, 91, 145, 203, 377, 455, 1015,
+                1885, 2639, 13195), MathUtil.factors(13195));
     }
 
     @Test
     public void primes() {
-        assertEquals(list(2, 3, 5, 7, 11, 13, 17, 19, 23, 29),
+        assertEquals(set(2, 3, 5, 7, 11, 13, 17, 19, 23, 29),
                 MathUtil.primes(MathUtil.range(0, 30)));
     }
 
@@ -83,6 +81,14 @@ public class TestMathUtil {
 
     private List<Long> list(long... numbers) {
         List<Long> list = new ArrayList<>();
+        for (long num : numbers) {
+            list.add(num);
+        }
+        return list;
+    }
+
+    private Set<Long> set(long... numbers) {
+        Set<Long> list = new LinkedHashSet<>();
         for (long num : numbers) {
             list.add(num);
         }

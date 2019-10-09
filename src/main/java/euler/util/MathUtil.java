@@ -2,7 +2,8 @@ package euler.util;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
@@ -17,62 +18,86 @@ public final class MathUtil {
     private MathUtil() {}
 
     public static long sum(Collection<Long> numbers) {
-        return numbers.stream().collect(Collectors.summarizingLong(num -> num)).getSum();
+
+        return numbers.stream().collect(Collectors.summarizingLong(num -> num))
+                .getSum();
     }
 
-    public static List<Long> getDivisibleByEither(List<Long> numbers, List<Long> denominators) {
-        return numbers.stream().filter(number -> isDivisibleByEither(number, denominators))
+    public static Collection<Long> getDivisibleByEither(
+            Collection<Long> numbers, Collection<Long> denominators) {
+
+        return numbers.stream()
+                .filter(number -> isDivisibleByEither(number, denominators))
                 .collect(Collectors.toList());
     }
 
-    public static List<Long> getDivisibleByAll(List<Long> numbers, List<Long> denominators) {
-        return numbers.stream().filter(number -> isDivisibleByAll(number, denominators)).collect(Collectors.toList());
+    public static Collection<Long> getDivisibleByAll(Collection<Long> numbers,
+            Collection<Long> denominators) {
+
+        return numbers.stream()
+                .filter(number -> isDivisibleByAll(number, denominators))
+                .collect(Collectors.toList());
     }
 
-    public static boolean isDivisibleByAll(long number, List<Long> denominators) {
-        for (long denom : denominators) {
-            if (!isDivisibleBy(number, denom)) {
-                return false;
-            }
-        }
-        return true;
+    public static boolean isDivisibleByAll(long number,
+            Collection<Long> denominators) {
+
+        return !denominators.stream().filter(x -> number % x != 0).findAny()
+                .isPresent();
     }
 
-    public static boolean isDivisibleByEither(long number, List<Long> denominators) {
-        for (long denom : denominators) {
-            if (isDivisibleBy(number, denom)) {
-                return true;
-            }
-        }
-        return false;
+    public static boolean isDivisibleByEither(long number,
+            Collection<Long> denominators) {
+
+        return denominators.stream().filter(x -> number % x == 0).findAny()
+                .isPresent();
     }
 
     public static boolean isDivisibleBy(long number, long denominator) {
         return number % denominator == 0;
     }
 
-    public static List<Long> range(long min, long max) {
-        return LongStream.range(min, max + 1).boxed().collect(Collectors.toList());
+    public static Set<Long> range(long min, long max) {
+        return LongStream.range(min, max + 1).boxed()
+                .collect(Collectors.toSet());
     }
 
-    public static List<Long> even(List<Long> numbers) {
+    public static Collection<Long> even(Collection<Long> numbers) {
         return filter(numbers, x -> x % 2 == 0);
     }
 
-    public static List<Long> odd(List<Long> numbers) {
+    public static Collection<Long> odd(Collection<Long> numbers) {
         return filter(numbers, x -> x % 2 != 0);
     }
 
-    public static List<Long> filter(List<Long> numbers, Predicate<? super Long> predicate) {
+    public static Collection<Long> filter(Collection<Long> numbers,
+            Predicate<? super Long> predicate) {
+
         return numbers.stream().filter(predicate).collect(Collectors.toList());
     }
 
-    public static List<Long> factors(long number) {
-        return range(2, (long) Math.sqrt(number)).stream().filter(denom -> isDivisibleBy(number, denom))
-                .collect(Collectors.toList());
+    public static Set<Long> factors(long number) {
+
+        return sortedSet(range(1, number + 1).stream()
+                .filter(denom -> isDivisibleBy(number, denom))
+                .collect(Collectors.toList()));
     }
 
-    public static long max(List<Long> range) {
+    public static Set<Long> primes(Set<Long> range) {
+        return sortedSet(
+                range.stream().filter(number -> Algorithms.isPrime(number))
+                        .collect(Collectors.toList()));
+    }
+
+    private static Set<Long> sortedSet(Collection<Long> collection) {
+        Set<Long> set = new LinkedHashSet<Long>();
+        for (long num : collection) {
+            set.add(num);
+        }
+        return set;
+    }
+
+    public static long max(Collection<Long> range) {
         long max = Long.MIN_VALUE;
         for (long number : range) {
             max = max < number ? number : max;
@@ -80,7 +105,7 @@ public final class MathUtil {
         return max;
     }
 
-    public static long min(List<Long> range) {
+    public static long min(Collection<Long> range) {
         long min = Long.MAX_VALUE;
         for (long number : range) {
             min = min < number ? min : number;
@@ -88,11 +113,7 @@ public final class MathUtil {
         return min;
     }
 
-    public static List<Long> primes(List<Long> range) {
-        return range.stream().filter(number -> Algorithms.isPrime(number)).collect(Collectors.toList());
-    }
-
-    public static Number product(List<Long> range) {
+    public static Number product(Collection<Long> range) {
         Number integer = new Number("1");
         for (long number : range) {
             integer = integer.multiply(new Number(Long.toString(number)));
@@ -100,11 +121,12 @@ public final class MathUtil {
         return integer;
     }
 
-    public static List<Long> square(List<Long> range) {
-        return range.stream().mapToLong(number -> (long) Math.pow(number, 2)).boxed().collect(Collectors.toList());
+    public static Collection<Long> square(Collection<Long> range) {
+        return range.stream().mapToLong(number -> (long) Math.pow(number, 2))
+                .boxed().collect(Collectors.toList());
     }
 
-    public static List<Long> primes(long min, long max) {
+    public static Collection<Long> primes(long min, long max) {
         if (min <= 1) {
             min = 2;
         }
@@ -115,4 +137,13 @@ public final class MathUtil {
 
         return filter(range(min, max), number -> Algorithms.isPrime((number)));
     }
+
+    public static long intervalSum(long number) {
+        return number >= 0 ? intervalSum(1, number) : intervalSum(number, -1);
+    }
+
+    public static long intervalSum(long start, long end) {
+        return LongStream.range(start, end + 1).sum();
+    }
+
 }

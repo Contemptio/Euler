@@ -2,7 +2,10 @@ package euler.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public final class Algorithms {
 
@@ -30,6 +33,28 @@ public final class Algorithms {
             n0 = n1;
             n1 = n2;
             n2 = n0 + n1;
+        }
+
+        return result;
+    }
+
+    public static List<Long> primesUntil(long number) {
+        if (number <= 1) {
+            return Collections.<Long>emptyList();
+        }
+        List<Long> numbers = LongStream.range(2, number).boxed()
+                .collect(Collectors.toList());
+        List<Long> result = new ArrayList<Long>();
+
+        while (!numbers.isEmpty()) {
+            long num = numbers.remove(0);
+            result.add(num);
+
+            long toRemove = num * num;
+            while (toRemove <= number) {
+                numbers.remove(toRemove);
+                toRemove += num;
+            }
         }
 
         return result;

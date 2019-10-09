@@ -79,7 +79,9 @@ public class Number extends BigInteger {
                 return null;
             }
             return comparison;
-        } else if (comparison == null) {
+        }
+
+        if (comparison == null) {
             return reference;
         }
 
