@@ -3,6 +3,7 @@ package euler.util;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -81,6 +82,10 @@ public final class MathUtil {
         return sortedSet(range(1, number + 1).stream()
                 .filter(denom -> isDivisibleBy(number, denom))
                 .collect(Collectors.toList()));
+    }
+
+    public static List<Long> primeFactors(long number) {
+        return Algorithms.primesUntil((long) Math.sqrt(number));
     }
 
     public static Set<Long> primes(Set<Long> range) {

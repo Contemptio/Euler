@@ -1,10 +1,15 @@
 package euler.test.problem7;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import euler.util.Algorithms;
 
 public class Prime10001 {
 
-    public static void main(String[] args) {
+    @Test
+    public void problem7() {
         long x = 1;
         int nPrimes = 1;
         while (nPrimes < 10001) {
@@ -14,6 +19,6 @@ public class Prime10001 {
             }
         }
 
-        System.out.println(x);
+        assertEquals(104729, x);
     }
 }

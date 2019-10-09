@@ -1,15 +1,20 @@
 package euler.test.problem4;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
+import org.junit.Test;
 
 import euler.util.MathUtil;
 import euler.util.StringUtil;
 
 public class LargestPalindromeProduct {
 
-    public static void main(String[] args) {
-        System.out.println(MathUtil.max(productsFromDigits(3)));
+    @Test
+    public void problem4() {
+        assertEquals(906609, MathUtil.max(productsFromDigits(3)));
     }
 
     private static Collection<Long> productsFromDigits(int numbers) {

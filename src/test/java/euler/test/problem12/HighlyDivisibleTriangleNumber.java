@@ -1,8 +1,15 @@
 package euler.test.problem12;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import euler.util.MathUtil;
+
 public class HighlyDivisibleTriangleNumber {
 
-    public static void main(String[] args) {
+    @Test
+    public void problem12() {
 
         int i = 1;
         int natural = 1;
@@ -10,9 +17,9 @@ public class HighlyDivisibleTriangleNumber {
         while(numberOfDivisors(natural) < 500) {
             natural += ++i;
         }
-        System.out.println("Result: " + natural);
+        assertEquals(76576500, natural);
     }
-    
+
     private static int numberOfDivisors(int num) {
         int amount = 0;
 
@@ -23,5 +30,15 @@ public class HighlyDivisibleTriangleNumber {
         }
 
         return amount;
+    }
+    
+
+    /*
+     * TODO: Are streams this slow or what am I doing wrong in
+     * {@link MathUtil#factors(...)}?
+     */
+    @SuppressWarnings("unused")
+    private static int numberOfDivisors2(int num) {
+        return MathUtil.factors(((long) Math.sqrt(num))).size() * 2;
     }
 }
