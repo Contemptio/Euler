@@ -1,4 +1,4 @@
-package euler.problem2;
+package euler.test.problem2;
 
 import euler.util.Algorithms;
 import euler.util.MathUtil;

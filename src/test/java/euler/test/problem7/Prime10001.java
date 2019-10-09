@@ -1,4 +1,4 @@
-package euler.problem7;
+package euler.test.problem7;
 
 import euler.util.Algorithms;
 

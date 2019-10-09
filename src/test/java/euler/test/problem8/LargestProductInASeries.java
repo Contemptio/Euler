@@ -1,4 +1,4 @@
-package euler.problem8;
+package euler.test.problem8;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

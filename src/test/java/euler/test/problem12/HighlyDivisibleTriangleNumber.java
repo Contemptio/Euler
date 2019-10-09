@@ -1,4 +1,4 @@
-package euler.problem12;
+package euler.test.problem12;
 
 public class HighlyDivisibleTriangleNumber {
 

@@ -1,4 +1,4 @@
-package euler.problem10;
+package euler.test.problem10;
 
 import java.util.Collection;
 
