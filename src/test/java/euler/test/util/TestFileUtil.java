@@ -1,4 +1,4 @@
-package euler.util;
+package euler.test.util;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +10,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
+
+import euler.util.FileUtil;
+import euler.util.ListUtil;
 
 public class TestFileUtil {
 
