@@ -93,4 +93,22 @@ public final class FileUtil {
         return new Grid<Long>(longs);
     }
 
+    public static List<List<Long>> parseTriangle(String fileName)
+            throws NumberFormatException, UnsupportedEncodingException,
+            IOException {
+
+        List<List<Long>> result = new ArrayList<List<Long>>();
+
+        for (List<String> list : parseMatrix(resource(fileName))) {
+            List<Long> newList = new ArrayList<Long>();
+
+            for (String string : list) {
+                newList.add(Long.parseLong(string));
+            }
+            result.add(newList);
+        }
+
+        return result;
+    }
+
 }
