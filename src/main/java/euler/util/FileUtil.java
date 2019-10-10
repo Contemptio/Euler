@@ -19,7 +19,8 @@ public final class FileUtil {
 
     private FileUtil() {}
 
-    public static List<Long> parseNumberFile(String fileName) throws UnsupportedEncodingException, IOException {
+    public static List<Long> parseNumberFile(String fileName)
+            throws UnsupportedEncodingException, IOException {
         String file = fileAsString(fileName);
 
         if (file.equals("")) {
@@ -27,24 +28,32 @@ public final class FileUtil {
         }
 
         return Arrays.asList(file.split(NEWLINE_REGEX)).stream()
-                .map(line -> Arrays.asList(line.split(",*" + WHITESPACE_REGEX))).flatMap(List::stream)
-                .mapToLong(string -> Long.parseLong(string)).boxed().collect(Collectors.toList());
+                .map(line -> Arrays.asList(line.split(",*" + WHITESPACE_REGEX)))
+                .flatMap(List::stream)
+                .mapToLong(string -> Long.parseLong(string)).boxed()
+                .collect(Collectors.toList());
     }
 
-    public static String fileAsString(String fileName) throws UnsupportedEncodingException, IOException {
+    public static String fileAsString(String fileName)
+            throws UnsupportedEncodingException, IOException {
         return new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8");
     }
 
-    public static List<String> parseLines(String fileName) throws UnsupportedEncodingException, IOException {
-        return Arrays.asList(new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8").split(NEWLINE_REGEX));
+    public static List<String> parseLines(String fileName)
+            throws UnsupportedEncodingException, IOException {
+        return Arrays.asList(
+                new String(Files.readAllBytes(Paths.get(fileName)), "UTF-8")
+                        .split(NEWLINE_REGEX));
     }
 
     public static String resource(String fileName) {
-        return StringUtil.intersperse(File.separator, System.getProperty("user.dir"), "src", "test", "resources",
+        return StringUtil.intersperse(File.separator,
+                System.getProperty("user.dir"), "src", "test", "resources",
                 fileName);
     }
 
-    public static List<List<Short>> digitMap(String fileName) throws UnsupportedEncodingException, IOException {
+    public static List<List<Short>> digitMap(String fileName)
+            throws UnsupportedEncodingException, IOException {
         List<String> lines = parseLines(fileName);
         int size = lines.size();
         List<List<Short>> digitMap = new ArrayList<>();
@@ -63,7 +72,8 @@ public final class FileUtil {
         return digitMap;
     }
 
-    public static List<List<String>> parseMatrix(String fileName) throws UnsupportedEncodingException, IOException {
+    public static List<List<String>> parseMatrix(String fileName)
+            throws UnsupportedEncodingException, IOException {
         List<List<String>> matrix = new ArrayList<>();
 
         for (String line : parseLines(fileName)) {
@@ -72,12 +82,15 @@ public final class FileUtil {
         return matrix;
     }
 
-    public static Grid<Long> longGrid(String fileName) throws UnsupportedEncodingException, IOException {
+    public static Grid<Long> longGrid(String fileName)
+            throws UnsupportedEncodingException, IOException {
         List<List<String>> matrix = parseMatrix(fileName);
         List<List<Long>> longs = matrix.stream()
-                .map(list -> list.stream().map(string -> Long.parseLong(string)).collect(Collectors.toList()))
+                .map(list -> list.stream().map(string -> Long.parseLong(string))
+                        .collect(Collectors.toList()))
                 .collect(Collectors.toList());
 
         return new Grid<Long>(longs);
     }
+
 }
