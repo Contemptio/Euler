@@ -2,6 +2,7 @@ package euler.test.util;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -79,6 +80,20 @@ public class TestMathUtil {
     public void square() {
         assertEquals(list(1, 4, 9, 16, 25, 36, 49, 64, 81, 100),
                 MathUtil.square(list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)));
+    }
+
+    @Test
+    public void factorial() {
+        assertEquals(1, MathUtil.factorial(0).longValue());
+        assertEquals(1, MathUtil.factorial(1).longValue());
+        assertEquals(3628800L, MathUtil.factorial(10).longValue());
+        assertEquals(new BigInteger("2432902008176640000"),
+                MathUtil.factorial(20));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void factorialNaN() {
+        MathUtil.factorial(-1L);
     }
 
     private List<Long> list(long... numbers) {

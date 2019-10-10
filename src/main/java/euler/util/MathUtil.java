@@ -1,5 +1,6 @@
 package euler.util;
 
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -149,6 +150,20 @@ public final class MathUtil {
 
     public static long intervalSum(long start, long end) {
         return LongStream.range(start, end + 1).sum();
+    }
+
+    public static BigInteger factorial(long number) {
+        if (number < 0) {
+            throw new IllegalArgumentException(
+                    "A factorial can't be of a negative number.");
+        }
+
+        BigInteger result = new BigInteger("1");
+
+        while (number >= 2) {
+            result = result.multiply(new BigInteger(Long.toString(number--)));
+        }
+        return result;
     }
 
 }
