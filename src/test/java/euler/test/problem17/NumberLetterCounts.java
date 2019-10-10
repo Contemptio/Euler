@@ -37,6 +37,18 @@ public class NumberLetterCounts extends ProblemBase {
         List<String> allWords = new ArrayList<String>();
         allWords.addAll(firstTwenty);
 
+        firstHundred(allWords);
+        addRest(allWords);
+
+        allWords.add("onethousand");
+        allWords.remove(0);
+
+        int sum = allWords.stream().mapToInt(string -> string.length()).sum();
+
+        assertEquals(21124, sum);
+    }
+
+    private void firstHundred(List<String> allWords) {
         for (int i = 20; i < 100; ++i) {
             StringBuilder string = new StringBuilder();
             string.append(tens.get(i / 10));
@@ -47,11 +59,16 @@ public class NumberLetterCounts extends ProblemBase {
             }
             allWords.add(string.toString());
         }
+    }
 
-        for (String string : allWords) {
-            // System.out.println(string);
+    private void addRest(List<String> allWords) {
+        for (int i = 1; i < 10; ++i) {
+            String base = firstTwenty.get(i) + "hundred";
+
+            allWords.add(base);
+            for (int j = 1; j < 100; ++j) {
+                allWords.add(base + "and" + allWords.get(j));
+            }
         }
-
-        assertEquals(0, 1);
     }
 }
