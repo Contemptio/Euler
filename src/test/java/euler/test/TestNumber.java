@@ -1,10 +1,12 @@
-package euler.data;
+package euler.test;
 
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
 
 import org.junit.Test;
+
+import euler.data.Number;
 
 public class TestNumber {
     private static final Number LONG = new Number("123");
