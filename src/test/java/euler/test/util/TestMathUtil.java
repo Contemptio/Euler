@@ -91,6 +91,14 @@ public class TestMathUtil {
                 MathUtil.factorial(20));
     }
 
+    @Test
+    public void pow() {
+        assertEquals(1, MathUtil.pow(12345, 0).intValue());
+        assertEquals(5, MathUtil.pow(5, 1).doubleValue(), 0);
+        assertEquals(32768, MathUtil.pow(2, 15).intValue());
+        assertEquals(0.125, MathUtil.pow(2, -3).doubleValue(), 0);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void factorialNaN() {
         MathUtil.factorial(-1L);

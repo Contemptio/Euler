@@ -1,5 +1,6 @@
 package euler.util;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Collections;
@@ -163,6 +164,32 @@ public final class MathUtil {
         while (number >= 2) {
             result = result.multiply(new BigInteger(Long.toString(number--)));
         }
+        return result;
+    }
+
+    public static BigDecimal pow(long base, long exponent) {
+        BigDecimal result = new BigDecimal(Long.toString(1L));
+        BigDecimal baseNum = new BigDecimal(Long.toString(base));
+
+        if (exponent == 0) {
+            return result;
+        }
+        if (exponent == 1) {
+            return baseNum;
+        }
+
+        if (exponent < 0) {
+
+            while (exponent++ < 0) {
+                result = result.divide(baseNum);
+            }
+        } else {
+
+            while (exponent-- > 0) {
+                result = result.multiply(baseNum);
+            }
+        }
+
         return result;
     }
 
