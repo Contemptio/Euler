@@ -193,4 +193,15 @@ public final class MathUtil {
         return result;
     }
 
+    public static long digitSum(String number) {
+        return number.chars().mapToLong(c -> charToNumber((char) c)).sum();
+    }
+
+    public static long digitSum(long number) {
+        return digitSum(new BigInteger(Long.toString(number)).toString());
+    }
+
+    private static int charToNumber(char ch) {
+        return Character.isDigit(ch) ? Character.getNumericValue(ch) : 0;
+    }
 }

@@ -104,6 +104,14 @@ public class TestMathUtil {
         MathUtil.factorial(-1L);
     }
 
+    @Test
+    public void digitSum() {
+        assertEquals(15, MathUtil.digitSum(12345));
+        assertEquals(45, MathUtil.digitSum("2345678901"));
+        assertEquals(107, MathUtil.digitSum("-1546878349875692438"));
+        assertEquals(73, MathUtil.digitSum(-2439785628937L));
+    }
+
     private List<Long> list(long... numbers) {
         List<Long> list = new ArrayList<>();
         for (long num : numbers) {
