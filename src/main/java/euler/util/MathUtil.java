@@ -197,6 +197,10 @@ public final class MathUtil {
         return number.chars().mapToLong(c -> charToNumber((char) c)).sum();
     }
 
+    public static long digitSum(BigInteger factorial) {
+        return digitSum(factorial.toString());
+    }
+
     public static long digitSum(long number) {
         return digitSum(new BigInteger(Long.toString(number)).toString());
     }
